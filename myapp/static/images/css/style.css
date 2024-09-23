@@ -1,0 +1,67 @@
+/* Example styles for the product category page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+}
+h1 {
+    text-align: left;
+    font-size: 24px;
+    padding-bottom: 20px;
+}
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.product-item {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    width: 23%;
+    text-align: center;
+    padding: 15px;
+    transition: box-shadow 0.3s;
+}
+.product-item:hover {
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+.product-image img {
+    max-width: 100%;
+    height: auto;
+}
+.product-details h2 {
+    font-size: 16px;
+    margin: 10px 0;
+    height: 40px;
+    overflow: hidden;
+}
+.product-details p {
+    font-size: 14px;
+    color: #666;
+}
+.product-price {
+    font-size: 18px;
+    color: #ff5722;
+    font-weight: bold;
+}
+.product-link {
+    background-color: #2874f0;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: inline-block;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.product-link:hover {
+    background-color: #0056b3;
+}

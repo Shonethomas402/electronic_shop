@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .navbar {
+            background-color: #1a13a5;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .navbar a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .sidebar {
+            width: 200px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #333;
+            padding-top: 20px;
+            height: 100%;
+        }
+
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        .main-content {
+            margin-left: 200px;
+            padding: 20px;
+        }
+
+        .section {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            margin-top: 0;
+        }
+
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .product-card {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            width: 200px;
+            text-align: center;
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .product-card h3 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .product-card p {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .product-card .price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .product-card button {
+            background-color: #1a13a5;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .product-card button:hover {
+            background-color: #45a049;
+        }
+
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .order-table th,
+        .order-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .order-table th {
+            background-color: #1a13a5;
+            color: white;
+        }
+
+        .notification-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .notification {
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Welcome to Your Dashboard</h1>
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+
+    <div class="sidebar">
+        <a href="{% url 'dashboard' %}">Dashboard Home</a>
+        <a href="{% url 'product_list' %}">Browse Products</a>
+        <a href="{% url 'cart' %}">My Cart</a>
+        <a href="{% url 'order_list' %}">My Orders</a>
+        <a href="{% url 'notifications' %}">Notifications</a>
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="{% url 'change_password' %}">Change Password</a>
+    </div>
+
+    <div class="main-content">
+        <!-- Dashboard Overview Section -->
+        <div class="section">
+            <h2>Overview</h2>
+            <p>Welcome back, {{ user.username }}! Here's what's happening:</p>
+            <!-- Display some quick stats or updates -->
+        </div>
+
+        <!-- Product Browsing Section -->
+        <div class="section">
+            <h2>Browse Products</h2>
+            <div class="product-grid">
+                <!-- Loop through products and display each in a card -->
+                {% for product in products %}
+                <div class="product-card">
+                    <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.description|truncatewords:15 }}</p>
+                    <p class="price">${{ product.price }}</p>
+                    <button>Add to Cart</button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Order Management Section -->
+        <div class="section">
+            <h2>My Orders</h2>
+            <table class="order-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loop through orders and display each in a row -->
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.created_at }}</td>
+                        <td>{{ order.status }}</td>
+                        <td>${{ order.total_price }}</td>
+                        <td><a href="{% url 'order_detail' order.id %}">View Details</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Notifications Section -->
+        <div class="section">
+            <h2>Notifications</h2>
+            <div class="notification-section">
+                <!-- Loop through notifications and display each -->
+                {% for notification in notifications %}
+                <div class="notification">
+                    <p>{{ notification.message }}</p>
+                    <p><small>{{ notification.timestamp }}</small></p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

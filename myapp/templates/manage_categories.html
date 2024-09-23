@@ -1,0 +1,19 @@
+<!-- templates/manage_categories.html -->
+<h1>Category Management</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for category in categories %}
+        <tr>
+            <td>{{ category.name }}</td>
+            <td><a href="#">Edit</a> | <a href="#">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'category_create' %}">Add Category</a>

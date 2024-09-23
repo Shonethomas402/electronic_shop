@@ -1,0 +1,18 @@
+<!-- templates/myapp/tv_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TVs</title>
+</head>
+<body>
+    <h1>Available TVs</h1>
+    <ul>
+        {% for product in products %}
+            <li>{{ product.name }} - {{ product.price }}</li>
+        {% empty %}
+            <li>No TVs available.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

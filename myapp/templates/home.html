@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electronics Shop</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .navbar {
+            background-color: #007bff;
+        }
+
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: #e2e6ea !important;
+        }
+
+        .banner {
+            background: url('{% static "images/banner.jpg" %}') no-repeat center center;
+            background-size: cover;
+            color: rgb(244, 13, 13);
+            text-align: center;
+            padding: 100px 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #007bff;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: #007bff;
+            margin: 10px auto 0;
+            border-radius: 4px;
+        }
+        .product-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    margin-bottom: 30px;
+    text-align: center;
+    padding: 20px;
+    height: 500px; /* Added fixed height */
+    display: flex; /* Added for flex alignment */
+    flex-direction: column; /* Ensure content is stacked vertically */
+    justify-content: space-between; /* Evenly distribute space inside */
+}
+
+.product-card img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+    flex-grow: 1; /* Allow image to grow and fill space */
+    object-fit: contain; /* Ensure image maintains aspect ratio */
+}
+
+.product-card .product-name,
+.product-card .price,
+.product-card .buy-now {
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .product-card {
+        height: auto; /* Remove fixed height on smaller screens */
+    }
+}
+
+
+        
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 1.1rem;
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            margin-right: 10px;
+        }
+
+        .buy-now {
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 50px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .buy-now:hover {
+            background-color: #0056b3;
+        }
+
+        .about-section {
+            background-color: #fff;
+            padding: 60px 20px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .about-section h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .about-section p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 40px 0;
+        }
+
+        .footer a {
+            color: #adb5bd;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #fff;
+        }
+
+        .footer .footer-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer .footer-content p {
+            margin-bottom: 15px;
+        }
+
+        .footer .footer-content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer .footer-content ul li {
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .banner {
+                font-size: 1.8rem;
+                padding: 60px 0;
+            }
+
+            .footer .footer-content {
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+
+
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">Electronics Shop</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'cart' %}">Cart</a>
+                </li>
+                <li class="nav-item">
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Banner -->
+    <div class="banner">
+        Welcome to Electronics Shop
+    </div>
+
+    <div class="container">
+    <h2>Product Available</h2>
+<ul>
+    <li><a href="{% url 'category_search' 'TV' %}">TVs</a></li>
+    <li><a href="{% url 'category_search' 'Phone' %}">Phones</a></li>
+    <li><a href="{% url 'category_search' 'Laptop' %}">Laptops</a></li>
+    <li><a href="{% url 'category_search' 'Headset' %}">Headsets</a></li>
+    <li><a href="{% url 'category_search' 'Watch' %}">Watches</a></li>
+</ul>
+
+  <!-- Section: Mobile Phones -->
+<div class="container">
+    <div class="section-title">Mobile Phones</div>
+    <div class="row">
+        <!-- Product 1: Samsung Galaxy S21 -->
+        <div class="col-md-3">
+            <div class="product-card">
+                <img src="{% static 'images/product1.png' %}" alt="Samsung Galaxy S21">
+                <div class="product-name">Samsung Galaxy S21</div>
+                <div class="price"><span class="old-price">₹79,999</span> ₹69,999</div>
+                <div class="description">
+                    The Samsung Galaxy S21 features a 6.2-inch Dynamic AMOLED display, Exynos 2100 chipset, and a triple camera setup with 64MP main sensor.
+                </div>
+                <a href="{% url 'product_detail' 1 %}" class="btn btn-primary buy-now">Buy Now</a> <!-- Link to product detail page -->
+            </div>
+        </div>
+        
+        <!-- Product 2: Apple iPhone 12 -->
+        <div class="col-md-3">
+            <div class="product-card">
+                <img src="{% static 'images/product2.png' %}" alt="Apple iPhone 12">
+                <div class="product-name">Apple iPhone 12</div>
+                <div class="price"><span class="old-price">₹89,999</span> ₹79,999</div>
+                <div class="description">
+                    The iPhone 12 features a 6.1-inch Super Retina XDR display, A14 Bionic chip, and a dual-camera system with 12MP ultra-wide and wide cameras.
+                </div>
+                <a href="{% url 'product_detail' 2 %}" class="btn btn-primary buy-now">Buy Now</a> <!-- Link to product detail page -->
+            </div>
+        </div>
+        
+        <!-- Product 3: OnePlus 9 Pro -->
+        <div class="col-md-3">
+            <div class="product-card">
+                <img src="{% static 'images/product3.png' %}" alt="OnePlus 9 Pro">
+                <div class="product-name">OnePlus 9 Pro</div>
+                <div class="price"><span class="old-price">₹64,999</span> ₹59,999</div>
+                <div class="description">
+                    The OnePlus 9 Pro comes with a 6.7-inch Fluid AMOLED display, Snapdragon 888 processor, and Hasselblad quad-camera system with a 48MP main sensor.
+                </div>
+                <a href="{% url 'product_detail' 3 %}" class="btn btn-primary buy-now">Buy Now</a> <!-- Link to product detail page -->
+            </div>
+        </div>
+        
+        <!-- Product 4: Google Pixel 5 -->
+        <div class="col-md-3">
+            <div class="product-card">
+                <img src="{% static 'images/product4.png' %}" alt="Google Pixel 5">
+                <div class="product-name">Google Pixel 5</div>
+                <div class="price"><span class="old-price">₹69,999</span> ₹65,999</div>
+                <div class="description">
+                    The Google Pixel 5 offers a 6.0-inch OLED display, Snapdragon 765G chipset, and a dual-camera setup with 12.2MP and 16MP lenses.
+                </div>
+                <a href="{% url 'product_detail' 4 %}" class="btn btn-primary buy-now">Buy Now</a> <!-- Link to product detail page -->
+            </div>
+        </div>
+    </div>
+</div>
+  
+
+    <!-- Section: Laptops -->
+    <div class="container">
+        <div class="section-title">Laptops</div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="product-card">
+                    <img src="{% static 'images/product5.png' %}" alt="Dell XPS 13">
+                    <div class="product-name">Dell XPS 13</div>
+                    <div class="price"><span class="old-price">₹1,29,999</span> ₹1,19,999</div>
+                    <button class="btn btn-primary buy-now">Buy Now</button>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="product-card">
+                    <img src="{% static 'images/product6.png' %}" alt="MacBook Pro">
+                    <div class="product-name">MacBook Pro</div>
+                    <div class="price"><span class="old-price">₹2,29,999</span> ₹2,19,999</div>
+                    <button class="btn btn-primary buy-now">Buy Now</button>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="product-card">
+                    <img src="{% static 'images/product7.png' %}" alt="HP Spectre x360">
+                    <div class="product-name">HP Spectre x360</div>
+                    <div class="price"><span class="old-price">₹1,49,999</span> ₹1,39,999</div>
+                    <button class="btn btn-primary buy-now">Buy Now</button>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="product-card">
+                    <img src="{% static 'images/product8.png' %}" alt="Asus ZenBook 14">
+                    <div class="product-name">Asus ZenBook 14</div>
+                    <div class="price"><span class="old-price">₹1,19,999</span> ₹1,09,999</div>
+                    <button class="btn btn-primary buy-now">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- About Us Section -->
+    <div class="about-section">
+        <h2>About Us</h2>
+        <p>At Electronics Shop, we are committed to providing our customers with the latest and greatest in electronic devices. From the newest smartphones to cutting-edge laptops, we have everything you need to stay connected and up-to-date with technology.</p>
+        <p>We believe in quality products, exceptional customer service, and a seamless shopping experience. Thank you for choosing Electronics Shop as your trusted source for electronics.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 footer-content">
+                    <div class="footer-title">Electronics Shop</div>
+                    <p>Providing the best electronics since 2023. Quality products, exceptional service.</p>
+                </div>
+                <div class="col-md-4 footer-content">
+                    <div class="footer-title">Quick Links</div>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Products</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 footer-content">
+                    <div class="footer-title">Follow Us</div>
+                    <p>Stay connected with us on social media.</p>
+                    <a href="#"><img src="{% static 'images/facebook.png' %}" alt="Facebook" style="width: 24px; height: 24px;"></a>
+                    <a href="#"><img src="{% static 'images/twitter.png' %}" alt="Twitter" style="width: 24px; height: 24px;"></a>
+                    <a href="#"><img src="{% static 'images/instagram.png' %}" alt="Instagram" style="width: 24px; height: 24px;"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+
+</body>
+
+</html>
